@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome {{user.name}}!</h1>
+    <form ng-submit="createList()" name="List">
+      <input type="text" name="title" ng-model="newList.title" placeholder="title" ng-minlength="5"/>
+      <input type="text" name="description" ng-model="newList.description" placeholder="description" ng-minlength="10"/>
+      <select ng-model='newList._user'>
+        <option ng-repeat='user in users' value={{user.name}} ng-bind='user.name'></option>
+      </select>
+      <input type="submit" value="Add to List" />
+
+      <div ng-messages="List.title.$error" role="alert">
+        <p ng-message="minlength">You must enter at least 5 letters!</p>
+      </div>
+      <div ng-messages="List.description.$error" role="alert">
+        <p ng-message="minlength">You must enter at least 10 letters!</p>
+      </div>
+    </form>
+    <hr />
+    <h2>Before I die I want to: </h2>
+    <form ng-submit="UpdateList()">
+    <div ng-repeat='lists in lists'>
+      <input type="checkbox" ng-model="updateList" name="list" value="list._id">{{list._user}} {{list.title}} {{list.description}} {{list.createdAt | date: short }}</h4></li>
+    </div>
+    <input type="submit" value="Update" />
+  </form>
+  <hr />
+  <div class='users'>
+    <h2>List of Other Users:</h2>
+    <ul ng-repeat='user in users'>
+      <li><h4><a href="#/users/{{user._id}}">{{user.name}}</a></h4></li>
+    </ul>
+  </div>
+
+  </body>
+</html>
